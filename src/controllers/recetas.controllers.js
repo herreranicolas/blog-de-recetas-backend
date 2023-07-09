@@ -27,12 +27,6 @@ export const obtenerRecetaPorId = async (req, res) => {
 
 export const crearReceta = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errores: errors.array(),
-      });
-    }
     const nuevaReceta = new Receta(req.body);
     await nuevaReceta.save();
     res.status(201).json({
