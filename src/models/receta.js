@@ -16,14 +16,10 @@ const recetaSchema = new Schema({
   },
   ingredientes: {
     type: [String],
-    minLength: 3,
-    maxLength: 50,
     required: true,
   },
   pasos: {
     type: [String],
-    minLength: 3,
-    maxLength: 50,
     required: true,
   },
   imagen: {
