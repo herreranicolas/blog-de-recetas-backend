@@ -6,10 +6,25 @@ import {
   obtenerRecetaPorId,
   obtenerRecetas,
 } from "../controllers/recetas.controllers";
+import { check } from "express-validator";
 
 const router = Router();
 
-router.route("/recetas").get(obtenerRecetas).post(crearReceta);
+router
+  .route("/recetas")
+  .get(obtenerRecetas)
+  .post(
+    [
+      check("nombre")
+        .notEmpty()
+        .withMessage("El nombre de la receta es obligatorio")
+        .isLength({ min: 3, max: 50 })
+        .withMessage(
+          "El nombre de la receta debe tener entre 3 y 50 caracteres como máximo"
+        ),
+    ],
+    crearReceta
+  );
 
 router
   .route("/recetas/:id")
