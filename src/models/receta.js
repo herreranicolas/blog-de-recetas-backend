@@ -11,7 +11,7 @@ const recetaSchema = new Schema({
   descripcion: {
     type: String,
     minLength: 3,
-    maxLength: 100,
+    maxLength: 200,
     required: true,
   },
   ingredientes: {
