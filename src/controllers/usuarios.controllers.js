@@ -47,3 +47,30 @@ export const crearUsuario = async (req, res) => {
     });
   }
 };
+
+export const login = async (req, res) => {
+  try {
+    let usuario = await Usuario.findOne({ email: req.body.email });
+    if (!usuario) {
+      return res.status(404).json({
+        mensaje: "Correo o contraseña invalida.",
+      });
+    }
+    let passwordValido = bcrypt.compareSync(
+      req.body.password,
+      usuario.password
+    );
+    if (!passwordValido) {
+      return res.status(400).json({ mensaje: "Correo o contraseña invalida." });
+    }
+    res.status(200).json({
+      mensaje: "El usuario es correcto.",
+      nombreUsuario: usuario.nombreUsuario,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      mensaje: "Error al iniciar sesión.",
+    });
+  }
+};
