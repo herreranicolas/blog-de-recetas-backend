@@ -1,4 +1,5 @@
 import Usuario from "../models/usuario";
+import bcrypt from "bcrypt";
 
 export const obtenerUsuarios = async (req, res) => {
   try {
@@ -28,13 +29,12 @@ export const crearUsuario = async (req, res) => {
   try {
     let mailEsExistente = await Usuario.findOne({ email: req.body.email });
     if (mailEsExistente) {
-      return res
-        .status(400)
-        .json({
-          mensaje: "Ya existe un usuario registrado con el mail ingresado.",
-        });
+      return res.status(400).json({
+        mensaje: "Ya existe un usuario registrado con el mail ingresado.",
+      });
     }
     const usuarioNuevo = new Usuario(req.body);
+
     await usuarioNuevo.save();
     res.status(201).json({
       mensaje: "El usuario fue creado exitosamente.",
