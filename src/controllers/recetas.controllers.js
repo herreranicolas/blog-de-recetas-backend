@@ -1,4 +1,3 @@
-import { validationResult } from "express-validator";
 import Receta from "../models/receta";
 
 export const obtenerRecetas = async (req, res) => {
